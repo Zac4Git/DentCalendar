@@ -1,0 +1,77 @@
+:root {
+    --main-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --main-font-size: 0.8em;
+    /* --main-color: rgb(8, 228, 107); */
+    --main-color: rgb(33, 150, 243);
+    --radius: 3px;
+    --font-weight: 800;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 30px 220px 30px 360px 50px;
+    justify-content: center;
+    /* justify-items: center; */
+    align-items: center;
+}
+
+.section-name {
+    font-family: var(--main-font-family);
+    font-size: var(--main-font-size)*1.2;
+    font-weight: var(--font-weight);
+    background-color: var(--main-color);
+    color: black;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#submit {
+    width: 276px;
+    height: 50px;
+    border: none;
+    border-radius: var(--radius);
+    font-family: var(--main-font-family);
+    font-size: var(--main-font-size)*2;
+    font-weight: var(--font-weight);
+    border: 1px solid var(--main-color);
+}
+
+#submit:hover {
+    background-color: var(--main-color);
+    cursor: pointer;
+}
+
+table {
+    height: 350px;
+    width: 276px;
+    border-radius: var(--radius);
+    font-size: var(--main-font-size);
+    font-family: var(--main-font-family);
+    box-shadow: 0 0 5px #ddd;
+}
+
+td {
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: var(--radius);
+    cursor: pointer;
+    /* height: auto; */
+    /* width: 100px; */
+    text-align: center;
+}
+
+td:hover {
+    border: 1px solid #268BD2;
+}
+
+/* *,
+*::after,
+*::before {
+    box-sizing: border-box;
+} */
+
+@media (min-width: 30em) {}
