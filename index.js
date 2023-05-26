@@ -225,6 +225,7 @@ function record() {
     let btn = document.getElementById('submit');
     btn.addEventListener("click", function () {
         console.log(appointment);
+        alert('record added!')
         // console.log(new Date().getDate() + ' + ' + (new Date().getMonth() + 1) + ' + ' + new Date().getFullYear());
         // console.log(document.querySelectorAll("td")[0].dataset.time > document.querySelectorAll("td")[1].dataset.time);
     }, false)
