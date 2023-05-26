@@ -47,6 +47,7 @@ body {
 }
 
 table {
+    background-color: white;
     height: 350px;
     width: 276px;
     border-radius: var(--radius);
@@ -59,8 +60,6 @@ td {
     border: 1px solid rgb(255, 255, 255);
     border-radius: var(--radius);
     cursor: pointer;
-    /* height: auto; */
-    /* width: 100px; */
     text-align: center;
 }
 
