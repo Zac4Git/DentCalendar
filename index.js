@@ -1,133 +1,3 @@
-//materialize picker
-/*
-document.addEventListener('DOMContentLoaded', function () {
-    let elems = document.querySelectorAll('.datepicker');
-    let instances = M.Datepicker.init(elems, {
-        autoClose: true,
-        format: 'dd/mmmm/yyyy',
-        parse: function () {
-            alert('my function')
-        },
-        defaultDate: '01.01.1982',
-        setDefaultDate: true,
-        disableWeekends: false,
-        disableDayFn: false,
-        firstDay: 0,
-        minDate: null,
-        maxDate: null,
-        yearRange: 1,
-        isRTL: false,
-        showMonthAfterYear: false,
-        showDaysInNextAndPreviousMonths: false,
-        container: null,
-        showClearBtn: true,
-        i18n: {
-            cancel: 'Отмена',
-            clear: 'Очистить',
-            done: 'ОК',
-            previousMonth: '‹',
-            nextMonth: '›',
-            months: [
-                'January',
-                'February',
-                'March',
-                'April',
-                'May',
-                'June',
-                'July',
-                'August',
-                'Сентябрь',
-                'October',
-                'November',
-                'December'
-            ],
-            monthsShort:
-                [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec'
-                ],
-            weekdays: [
-                'Sunday',
-                'Monday',
-                'Tuesday',
-                'Wednesday',
-                'Thursday',
-                'Friday',
-                'Saturday'
-            ],
-            weekdaysShort: [
-                'Sun',
-                'Mon',
-                'Tue',
-                'Wed',
-                'Thu',
-                'Fri',
-                'Sat'
-            ],
-            weekdaysAbbrev: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-        },
-        events: [],
-        // onSelect: () => alert('date selected!'),
-        // onOpen: () => alert('datepicker is opened'),
-        // onClose: () => alert('datepicker is closed'),
-        onDraw: null,
-    });
-});*/
-
-//Lightpick
-/*
-var picker = new Lightpick({
-    field: document.getElementById('datepicker'),
-    format: 'DD/MM/YYYY',
-    firstDay: 1,
-    inline: true,
-    lang: 'uk-UA',
-    //lang: 'RU',
-    locale: {
-        tooltip: {
-            one: 'день',
-            few: 'дня',
-            many: 'дней',
-        },
-    },
-    orientation: 'bottom right',
-    dropdowns: {
-        years: false,
-        months: false,
-    },
-    locale: {
-        buttons: {
-            prev: '←',
-            next: '→',
-            close: '×',
-            reset: 'Reset',
-            apply: 'Apply'
-        },
-    },
-    // onSelect: () => alert('date selected'),
-    //footer: true,
-    // hoveringTooltip: true,
-    disableDates: ['2023-05-17', '2023-05-20'],
-    autoclose: false,
-    singleDate: true,
-    //  numberOfColumns: 2,
-    numberOfMonths: 1,
-    separator: "/",
-    minDate: '2023-05-18',
-    maxDate: '2023-06-18',
-
-});
-*/
 let responseFromServer = {
     day: undefined,
     lockDay: ['2023-05-29', '2023-05-31'],
@@ -137,9 +7,6 @@ let responseFromServer = {
 let appointment = {
     day: undefined,
     time: [],
-    // set time(e) {
-
-    // }
 }
 
 const PICK_COLOR = 'rgb(33, 150, 243)';
@@ -178,14 +45,12 @@ const picker = new Litepicker({
     setup: (picker) => {
         picker.on('selected', () => {
             appointment.day = picker.getDate().dateInstance;
-            //appointment.day = String(picker.getDate().dateInstance).split(' ').splice(1, 3).join('-')
-
         })
     }
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () { //check free time from a server 
     let tdArr = document.querySelectorAll("td");
     tdArr.forEach(e => {
         if (responseFromServer.time.includes(e.dataset.time)) {
@@ -225,10 +90,10 @@ function record() {
     let btn = document.getElementById('submit');
     btn.addEventListener("click", function () {
         console.log(appointment);
-        alert('record added!')
+        alert(`record added! \n ${appointment.day} \n ${appointment.time}`)
         // console.log(new Date().getDate() + ' + ' + (new Date().getMonth() + 1) + ' + ' + new Date().getFullYear());
         // console.log(document.querySelectorAll("td")[0].dataset.time > document.querySelectorAll("td")[1].dataset.time);
-    }, true)
+    }, false)
 }
 
 timePicker()
