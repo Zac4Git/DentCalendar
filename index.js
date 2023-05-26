@@ -228,7 +228,7 @@ function record() {
         alert('record added!')
         // console.log(new Date().getDate() + ' + ' + (new Date().getMonth() + 1) + ' + ' + new Date().getFullYear());
         // console.log(document.querySelectorAll("td")[0].dataset.time > document.querySelectorAll("td")[1].dataset.time);
-    }, false)
+    }, true)
 }
 
 timePicker()
