@@ -13,6 +13,7 @@ const PICK_COLOR = 'rgb(33, 150, 243)';
 const UNPICK_COLOR = 'rgb(255, 255, 255)';
 const PICK_TEXT_COLOR = 'white';
 const UNPICK_TEXT_COLOR = 'black';
+const tg = window.Telegram.WebApp;
 
 let today = new Date();
 let dd = String(today.getDate()).padStart(2, '0');
@@ -20,8 +21,6 @@ let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 let yyyy = today.getFullYear();
 let endDate = new Date(today.setMonth(today.getMonth() + 1));
 today = yyyy + '-' + mm + '-' + dd;
-
-
 
 const picker = new Litepicker({
     element: document.getElementById('litepicker'),
@@ -90,7 +89,8 @@ function record() {
     let btn = document.getElementById('submit');
     btn.addEventListener("click", function () {
         console.log(appointment);
-        alert(`record added! \n ${appointment.day} \n ${appointment.time}`)
+        console.log(tg.initData);
+        alert(`Record added! #2 \n ${appointment.day} \n ${appointment.time} \n`)
         // console.log(new Date().getDate() + ' + ' + (new Date().getMonth() + 1) + ' + ' + new Date().getFullYear());
         // console.log(document.querySelectorAll("td")[0].dataset.time > document.querySelectorAll("td")[1].dataset.time);
     }, false)
