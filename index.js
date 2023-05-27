@@ -14,6 +14,7 @@ const UNPICK_COLOR = 'rgb(255, 255, 255)';
 const PICK_TEXT_COLOR = 'white';
 const UNPICK_TEXT_COLOR = 'black';
 const tg = window.Telegram.WebApp;
+tg.expand();
 
 let today = new Date();
 let dd = String(today.getDate()).padStart(2, '0');
