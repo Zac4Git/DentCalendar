@@ -94,6 +94,8 @@ function record() {
         alert(`Record added! #2 \n ${appointment.day} \n ${appointment.time}`)
         // console.log(new Date().getDate() + ' + ' + (new Date().getMonth() + 1) + ' + ' + new Date().getFullYear());
         // console.log(document.querySelectorAll("td")[0].dataset.time > document.querySelectorAll("td")[1].dataset.time);
+        tg.chatid
+        tg.sendData(td.WebAppChat.id, 'Send message from web app')
         tg.close()
     }, false)
 
