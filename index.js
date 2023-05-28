@@ -65,7 +65,7 @@ function availableTime() {
     let tdArr = document.querySelectorAll("td");
 
     let hoursNow = new Date().getHours() < 10 ? '0' + new Date().getHours() : new Date().getHours();
-    let dayNow = `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`;
+    let dayNow = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`;
 
     console.log(hoursNow, dayNow);
 
@@ -82,7 +82,7 @@ function availableTime() {
             e.style.cursor = 'auto';
         }
     })
-
+    timePicker()
     //    }, true);
 }
 
@@ -113,10 +113,10 @@ function timePicker() {
     appointment.time = sortingArr;
 }
 
-function convertUTCDateToLocalDate(date) {
-    var newDate = new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
-    return newDate;
-}
+// function convertUTCDateToLocalDate(date) {
+//     var newDate = new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
+//     return newDate;
+// }
 
 function record() {
     let btn = document.getElementById('submit');
@@ -142,5 +142,5 @@ function record() {
 
 }
 
-timePicker()
+// timePicker()
 record()
