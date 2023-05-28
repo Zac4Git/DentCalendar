@@ -35,7 +35,7 @@ const picker = new Litepicker({
     // delimiter: '/',
     // startDate: '2023-05-18',
     //endDate: '2023-06-18',
-    format: "YYYY-MM-DD",
+    format: "DD-MM-YYYY",
     // highlightedDays: ['2023-05-20', '2023-05-23'],
     lockDays: responseFromServer.lockDay,
     lang: "uk-ua",
