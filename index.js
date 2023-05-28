@@ -60,28 +60,26 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 }, true)
 
+const tempArr = [...responseFromServer.time];
 
 function availableTime() {
-    //let tdArr = document.querySelectorAll("td");
-    let hoursNow = new Date().getHours() < 10 ? '0' + new Date().getHours() : new Date().getHours();
+    let hoursNowPlusOne = new Date().getHours() < 9 ? '0' + new Date().getHours() + 1 + '00' : new Date().getHours() + 1 + '00';
+    //Plus one hour by Irina's request
     let dayNow = `${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`;
-    //console.log(dayNow, appointment.day);
-    console.log(responseFromServer.time);
-    //pass unavailable time here
-    if (dayNow == appointment.day) {
 
-        responseFromServer.time.push('09000930');
-        console.log(responseFromServer.time);
+    const timeSlices = ['09000930', '09301000', '10001030', '10301100', '11001130', '11301200', '12001230', '12301300', '13001330', '13301400', '14001430', '14301500', '15001530', '15301600', '16001630', '16301700', '17001730', '17301800', '18001830', '18301900', '19001930', '19302000'];
+
+    if (dayNow == appointment.day) {
+        timeSlices.forEach((e) => {
+            if (hoursNowPlusOne >= e.split([], 4).join('')) {
+                responseFromServer.time.push(e);
+            }
+        })
     }
     else {
-        if (responseFromServer.time.includes('09000930')) {
-            responseFromServer.time.splice(responseFromServer.time.indexOf('09000930'))
-        }
-
+        responseFromServer.time = [];
+        responseFromServer.time = [...tempArr];
     }
-
-    //unpickTime()
-
 }
 
 function unpickTime() {
