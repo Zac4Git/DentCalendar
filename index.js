@@ -44,7 +44,8 @@ const picker = new Litepicker({
     // numberOfColumns: 1,
     setup: (picker) => {
         picker.on('selected', () => {
-            appointment.day = picker.getDate().dateInstance;
+            // appointment.day = picker.getDate().dateInstance;
+            appointment.day = `${picker.getDate().getDate()}-${picker.getDate().getMonth() + 1}-${picker.getDate().getFullYear()}`;
         })
     }
 });
@@ -64,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function () { //check free time fr
 function timePicker() {
     let tdArr = document.querySelectorAll("td"); //could also use getElementByTagname
     let sortingArr = [];
+
     for (let i = 0; i < tdArr.length; i++) {
         tdArr[i].addEventListener("click", function () {
             if (!responseFromServer.time.includes(tdArr[i].dataset.time)) { //Server time check
@@ -86,18 +88,32 @@ function timePicker() {
     appointment.time = sortingArr;
 }
 
+function convertUTCDateToLocalDate(date) {
+    var newDate = new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
+    return newDate;
+}
 
 function record() {
     let btn = document.getElementById('submit');
     btn.addEventListener("click", function () {
         console.log(appointment);
         console.log(tg.initData);
-        alert(`Record added! #2 \n ${appointment.day} \n ${appointment.time}`)
-        // console.log(new Date().getDate() + ' + ' + (new Date().getMonth() + 1) + ' + ' + new Date().getFullYear());
-        // console.log(document.querySelectorAll("td")[0].dataset.time > document.querySelectorAll("td")[1].dataset.time);
-        tg.sendData(JSON.stringify(appointment))
-        tg.close()
-    }, false)
+
+        if (appointment.day == undefined) {
+            alert('Вы не выбрали дату!')
+        }
+        else if (appointment.time.length == 0) {
+            alert('Вы не выбрали время!')
+        }
+        else {
+            // let pickedDate = `${appointment.day.getDate()}-${appointment.day.getMonth() + 1}-${appointment.day.getFullYear()}`
+            // console.log(pickedDate);
+
+            alert(`Спасибо за запись! \nДень: ${appointment.day} \nВремя: ${appointment.time}`)
+            tg.sendData(JSON.stringify(appointment))
+            tg.close()
+        }
+    }, true)
 
 }
 
