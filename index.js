@@ -52,12 +52,24 @@ const picker = new Litepicker({
     }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    let tdArr = document.querySelectorAll("td");
+    tdArr.forEach(e => {
+        e.style.border = 'none';
+    })
+}, true)
+
+
 function availableTime() {
     //   document.addEventListener("DOMContentLoaded", function () { //check free time from a server 
     let tdArr = document.querySelectorAll("td");
 
-    // let timeNow = new Date()
-    // console.log(timeNow.getHours(), timeNow.getMinutes());
+    let hoursNow = new Date().getHours() < 10 ? '0' + new Date().getHours() : new Date().getHours();
+    let dayNow = `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`;
+
+    console.log(hoursNow, dayNow);
+
+
 
     tdArr.forEach(e => {
         if (!responseFromServer.time.includes(e.dataset.time)) {
@@ -66,7 +78,8 @@ function availableTime() {
             e.style.border = 'border: 1px solid rgb(255, 255, 255)';
         }
         else {
-            e.style.border = 'none'
+            e.style.border = 'none';
+            e.style.cursor = 'auto';
         }
     })
 
