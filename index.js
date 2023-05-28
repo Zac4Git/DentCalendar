@@ -45,9 +45,10 @@ const picker = new Litepicker({
     // numberOfColumns: 1,
     setup: (picker) => {
         picker.on('selected', () => {
-            // appointment.day = picker.getDate().dateInstance;
             appointment.day = `${picker.getDate().getDate()}-${picker.getDate().getMonth() + 1}-${picker.getDate().getFullYear()}`;
-            availableTime();
+            // unpickTime();
+            //  availableTime();
+            timePicker()
         })
     }
 });
@@ -61,33 +62,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function availableTime() {
-    //   document.addEventListener("DOMContentLoaded", function () { //check free time from a server 
-    let tdArr = document.querySelectorAll("td");
-
+    //let tdArr = document.querySelectorAll("td");
     let hoursNow = new Date().getHours() < 10 ? '0' + new Date().getHours() : new Date().getHours();
-    let dayNow = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`;
+    let dayNow = `${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`;
+    //console.log(dayNow, appointment.day);
+    console.log(responseFromServer.time);
+    //pass unavailable time here
+    if (dayNow == appointment.day) {
 
-    console.log(hoursNow, dayNow);
+        responseFromServer.time.push('09000930');
+        console.log(responseFromServer.time);
+    }
+    else {
+        if (responseFromServer.time.includes('09000930')) {
+            responseFromServer.time.splice(responseFromServer.time.indexOf('09000930'))
+        }
 
+    }
 
+    //unpickTime()
 
+}
+
+function unpickTime() {
+    let tdArr = document.querySelectorAll("td");
     tdArr.forEach(e => {
         if (!responseFromServer.time.includes(e.dataset.time)) {
             e.style.cursor = 'pointer';
             e.style.color = 'black';
             e.style.border = 'border: 1px solid rgb(255, 255, 255)';
+            e.style.backgroundColor = 'white';
         }
         else {
             e.style.border = 'none';
             e.style.cursor = 'auto';
+            e.style.backgroundColor = 'white';
+            e.style.color = '#9e9e9e';
         }
     })
-    timePicker()
-    //    }, true);
 }
 
-
 function timePicker() {
+    availableTime();
+    unpickTime();
+
     let tdArr = document.querySelectorAll("td"); //could also use getElementByTagname
     let sortingArr = [];
 
@@ -112,11 +130,6 @@ function timePicker() {
     }
     appointment.time = sortingArr;
 }
-
-// function convertUTCDateToLocalDate(date) {
-//     var newDate = new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
-//     return newDate;
-// }
 
 function record() {
     let btn = document.getElementById('submit');
