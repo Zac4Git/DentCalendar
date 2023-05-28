@@ -86,11 +86,6 @@ function timePicker() {
     appointment.time = sortingArr;
 }
 
-const obj = {
-    name: 'John',
-    age: 37,
-    city: 'New York'
-}
 
 function record() {
     let btn = document.getElementById('submit');
@@ -100,7 +95,7 @@ function record() {
         alert(`Record added! #2 \n ${appointment.day} \n ${appointment.time}`)
         // console.log(new Date().getDate() + ' + ' + (new Date().getMonth() + 1) + ' + ' + new Date().getFullYear());
         // console.log(document.querySelectorAll("td")[0].dataset.time > document.querySelectorAll("td")[1].dataset.time);
-        tg.sendData(JSON.stringify(obj))
+        tg.sendData(JSON.stringify(appointment))
         tg.close()
     }, false)
 
