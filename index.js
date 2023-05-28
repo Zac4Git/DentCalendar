@@ -1,7 +1,7 @@
 let responseFromServer = {
     day: undefined,
     // lockDay: ['2023-05-29', '2023-05-31'],
-    lockDay: ['29-05-2023', '31-05-2023'],
+    lockDay: ['2023-05-29', '2023-05-31'],
     time: ['19302000', '19001930'],
 }
 
@@ -47,21 +47,32 @@ const picker = new Litepicker({
         picker.on('selected', () => {
             // appointment.day = picker.getDate().dateInstance;
             appointment.day = `${picker.getDate().getDate()}-${picker.getDate().getMonth() + 1}-${picker.getDate().getFullYear()}`;
+            availableTime();
         })
     }
 });
 
-
-document.addEventListener("DOMContentLoaded", function () { //check free time from a server 
+function availableTime() {
+    //   document.addEventListener("DOMContentLoaded", function () { //check free time from a server 
     let tdArr = document.querySelectorAll("td");
+
+    // let timeNow = new Date()
+    // console.log(timeNow.getHours(), timeNow.getMinutes());
+
     tdArr.forEach(e => {
-        if (responseFromServer.time.includes(e.dataset.time)) {
-            e.style.cursor = 'auto';
-            e.style.color = '#9e9e9e';
-            e.style.border = 'none';
+        if (!responseFromServer.time.includes(e.dataset.time)) {
+            e.style.cursor = 'pointer';
+            e.style.color = 'black';
+            e.style.border = 'border: 1px solid rgb(255, 255, 255)';
+        }
+        else {
+            e.style.border = 'none'
         }
     })
-}, true);
+
+    //    }, true);
+}
+
 
 function timePicker() {
     let tdArr = document.querySelectorAll("td"); //could also use getElementByTagname
