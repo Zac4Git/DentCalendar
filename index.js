@@ -1,7 +1,7 @@
 let responseFromServer = {
     day: undefined,
     // lockDay: ['2023-05-29', '2023-05-31'],
-    lockDay: ['2023-05-29', '2023-05-31'],
+    lockDay: ['2023-06-29', '2023-06-31'],
     time: ['19302000', '19001930'],
 }
 
@@ -47,8 +47,8 @@ const picker = new Litepicker({
         picker.on('selected', () => {
             appointment.day = `${picker.getDate().getDate()}-${picker.getDate().getMonth() + 1}-${picker.getDate().getFullYear()}`;
             // unpickTime();
-            //  availableTime();
-            timePicker()
+            // availableTime();
+            timePicker();
         })
     }
 });
@@ -81,6 +81,8 @@ function availableTime() {
         responseFromServer.time = [...tempArr];
     }
 }
+
+
 
 function unpickTime() {
     let tdArr = document.querySelectorAll("td");
@@ -129,11 +131,28 @@ function timePicker() {
     appointment.time = sortingArr;
 }
 
+
+
+
 function record() {
     let btn = document.getElementById('submit');
     btn.addEventListener("click", function () {
-        console.log(appointment);
-        console.log(tg.initData);
+        //console.log(appointment);
+
+
+        //formating time in popup reply
+        let timeForReply = undefined;
+        if (appointment.time.length > 1) {
+            let first = appointment.time[0].split('', 2).join('') + ':' + appointment.time[0].split('').splice(2, 2).join('');
+            let last = appointment.time[appointment.time.length - 1].split('').splice(4, 2).join('') + ':' + appointment.time[appointment.time.length - 1].split('').splice(6, 2).join('');
+            timeForReply = first + '-' + last;
+        }
+        else {
+            let first = appointment.time[0].split('', 2).join('') + ':' + appointment.time[0].split('').splice(2, 2).join('');
+            let last = appointment.time[0].split('').splice(4, 2).join('') + ':' + appointment.time[0].split('').splice(6, 2).join('');
+            timeForReply = first + '-' + last;
+        }
+
 
         if (appointment.day == undefined) {
             alert('Вы не выбрали дату!')
@@ -142,16 +161,12 @@ function record() {
             alert('Вы не выбрали время!')
         }
         else {
-            // let pickedDate = `${appointment.day.getDate()}-${appointment.day.getMonth() + 1}-${appointment.day.getFullYear()}`
-            // console.log(pickedDate);
-
-            alert(`Спасибо за запись! \nДень: ${appointment.day} \nВремя: ${appointment.time}`)
+            //alert(`Спасибо за запись! \nДень: ${appointment.day} \nВремя: ${appointment.time}`)
+            alert(`Спасибо за запись! \nДень: ${appointment.day} \nВремя: ${timeForReply}`)
             tg.sendData(JSON.stringify(appointment))
             tg.close()
         }
     }, true)
-
 }
 
-// timePicker()
 record()
