@@ -7,7 +7,7 @@ let responseFromServer = {
 
 let appointment = {
     day: undefined,
-    time: [],
+    time: undefined,
 }
 
 const PICK_COLOR = 'rgb(33, 150, 243)';
@@ -120,49 +120,63 @@ function timePicker() {
                 }
                 else {
                     //pick the item
-                    sortingArr.push(this.dataset.time)
-                    this.style.background = PICK_COLOR;
-                    this.style.color = PICK_TEXT_COLOR;
+                    //add check on gap between picked time, there shouldn't be any gap!!!
+
+
+                    if (sortingArr.length > 0) {
+
+                        if (this.dataset.time.split('', 4).join('') == sortingArr[sortingArr.length - 1].split('').splice(4, 8).join('')
+                            || this.dataset.time.split('').splice(4, 8).join('') == sortingArr[0].split('').splice(0, 4).join('')) {
+
+                            sortingArr.push(this.dataset.time)
+                            this.style.background = PICK_COLOR;
+                            this.style.color = PICK_TEXT_COLOR;
+                        }
+                        else {
+                            alert('Выберите время без разрыва.')
+                        }
+
+                    }
+                    else {
+                        sortingArr.push(this.dataset.time)
+                        this.style.background = PICK_COLOR;
+                        this.style.color = PICK_TEXT_COLOR;
+                    }
                 }
             }
             sortingArr.sort((a, b) => { return a - b })
+            appointment.time = sortingArr;
+
+            console.log(appointment.time);
+
+            if (appointment.time.length > 1) {
+                let first = appointment.time[0].split('', 2).join('') + ':' + appointment.time[0].split('').splice(2, 2).join('');
+                let last = appointment.time[appointment.time.length - 1].split('').splice(4, 2).join('') + ':' + appointment.time[appointment.time.length - 1].split('').splice(6, 2).join('');
+                let timeForReply = first + '-' + last;
+                appointment.time = timeForReply;
+            }
+            else {
+                let first = appointment.time[0].split('', 2).join('') + ':' + appointment.time[0].split('').splice(2, 2).join('');
+                let last = appointment.time[0].split('').splice(4, 2).join('') + ':' + appointment.time[0].split('').splice(6, 2).join('');
+                let timeForReply = first + '-' + last;
+                appointment.time = timeForReply;
+            }
         }, true);
     }
-    appointment.time = sortingArr;
 }
-
-
-
 
 function record() {
     let btn = document.getElementById('submit');
     btn.addEventListener("click", function () {
-        //console.log(appointment);
-
-
-        //formating time in popup reply
-        let timeForReply = undefined;
-        if (appointment.time.length > 1) {
-            let first = appointment.time[0].split('', 2).join('') + ':' + appointment.time[0].split('').splice(2, 2).join('');
-            let last = appointment.time[appointment.time.length - 1].split('').splice(4, 2).join('') + ':' + appointment.time[appointment.time.length - 1].split('').splice(6, 2).join('');
-            timeForReply = first + '-' + last;
-        }
-        else {
-            let first = appointment.time[0].split('', 2).join('') + ':' + appointment.time[0].split('').splice(2, 2).join('');
-            let last = appointment.time[0].split('').splice(4, 2).join('') + ':' + appointment.time[0].split('').splice(6, 2).join('');
-            timeForReply = first + '-' + last;
-        }
-
-
         if (appointment.day == undefined) {
             alert('Вы не выбрали дату!')
         }
-        else if (appointment.time.length == 0) {
+        else if (appointment.time == undefined) {
             alert('Вы не выбрали время!')
+            console.log(appointment.time);
         }
         else {
-            //alert(`Спасибо за запись! \nДень: ${appointment.day} \nВремя: ${appointment.time}`)
-            alert(`Спасибо за запись! \nДень: ${appointment.day} \nВремя: ${timeForReply}`)
+            alert(`Спасибо за запись! \nДень: ${appointment.day} \nВремя: ${appointment.time}`)
             tg.sendData(JSON.stringify(appointment))
             tg.close()
         }
