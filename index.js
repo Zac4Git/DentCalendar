@@ -114,15 +114,19 @@ function timePicker() {
             if (!responseFromServer.time.includes(tdArr[i].dataset.time)) { //Server time check
                 if (sortingArr.includes(this.dataset.time)) {
                     //unpick the item
-                    sortingArr.splice(sortingArr.indexOf(this.dataset.time), 1)
-                    this.style.background = UNPICK_COLOR;
-                    this.style.color = UNPICK_TEXT_COLOR;
+                    //todo: add condition, if uset trying to unpick time perioud in the middle.
+                    if (this.dataset.time == sortingArr[0] || this.dataset.time == sortingArr[sortingArr.length - 1]) {
+                        sortingArr.splice(sortingArr.indexOf(this.dataset.time), 1)
+                        this.style.background = UNPICK_COLOR;
+                        this.style.color = UNPICK_TEXT_COLOR;
+                    }
+                    else {
+                        alert('Вы не можете удалять время в середине диапазона.')
+                    }
+
                 }
                 else {
                     //pick the item
-                    //add check on gap between picked time, there shouldn't be any gap!!!
-
-
                     if (sortingArr.length > 0) {
 
                         if (this.dataset.time.split('', 4).join('') == sortingArr[sortingArr.length - 1].split('').splice(4, 8).join('')
@@ -147,7 +151,6 @@ function timePicker() {
             sortingArr.sort((a, b) => { return a - b })
             appointment.time = sortingArr;
 
-            console.log(appointment.time);
 
             if (appointment.time.length > 1) {
                 let first = appointment.time[0].split('', 2).join('') + ':' + appointment.time[0].split('').splice(2, 2).join('');
